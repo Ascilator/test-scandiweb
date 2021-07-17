@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+  height: 100%;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+#root {
+  height: 100%;
+  min-height: 100vh;
+}
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+*:hover {
+  text-decoration: none;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+
+html._lock,
+body._lock {
+  overflow: hidden;
+}
+
+/*====================================================================================*/
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+a:hover {
+  text-decoration: none !important;
+}
+
+a:active,
+a:focus {
+  outline: none;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+input:active,
+textarea:active {
+  outline: none;
+}
+
+:focus {
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+textarea {
+  resize: horizontal;
+}
+
+/*
+  main styles
+*/
+
+.header {
+  max-width: 1280px;
+  padding: 0 20px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drop_down_cont {
+  position: relative;
+}
+.drop_down_cont .drop_down_body {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -20px;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+}
+.drop_down_cont .drop_down_body .drop_item {
+  padding: 20px 40px 20px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+  font-size: 18px;
+  color: #1d1f22;
+}
+.drop_down_cont .drop_down_body .drop_item:hover {
+  background: #eaeaea;
+}
+
+.drop_down_cont .drop_down_title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.drop_down_title .arrow {
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+}
+.drop_down_title .arrow._active {
+  transform: rotate(180deg);
+}
+
+.for_whom_container {
+  display: flex;
+  align-items: stretch;
+}
+.for_whom_btn {
+  background: #0000;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  padding: 30px 16px;
+  border-bottom: 2px solid #0000;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.for_whom_btn._active {
+  color: #5ece7b;
+  border-bottom: 2px solid #5ece7b;
+}

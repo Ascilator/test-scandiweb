@@ -24,7 +24,6 @@ class CartProductItem extends Component {
     const { activeImg } = this.state;
 
     const renderAllAttributes = () => {
-      console.log(attributes);
       return attributes?.map((attributeSet) => {
         return (
           <div key={attributeSet.id} className="attribute_set_container">
@@ -36,7 +35,7 @@ class CartProductItem extends Component {
                     key={item.value}
                     style={
                       attributeSet.type === "swatch"
-                        ? { "background-color": item.displayValue }
+                        ? { backgroundColor: item.displayValue }
                         : {}
                     }
                     className={classNames({

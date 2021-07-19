@@ -5,7 +5,6 @@ class Cart extends Component {
   render() {
     const { cartInside, activeCurrency, changeActiveAttributes, changeAmount } =
       this.props;
-    console.log(cartInside);
 
     const renderCartBody = () => {
       if (cartInside.length === 0) {

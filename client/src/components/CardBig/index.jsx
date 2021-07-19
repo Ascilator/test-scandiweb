@@ -46,8 +46,6 @@ class CardBig extends Component {
     const prices = product?.prices;
     const desc = product?.description;
 
-    console.log(activeAttributes);
-
     const renderSlides = () => {
       return gallery?.map((img) => {
         return (
@@ -80,7 +78,13 @@ class CardBig extends Component {
                     className={classNames({
                       attribute_item: true,
                       _active: activeAttributes[attributeSet.name] === item.id,
+                      _swatch: attributeSet.type === "swatch",
                     })}
+                    style={
+                      attributeSet.type === "swatch"
+                        ? { backgroundColor: item.displayValue }
+                        : {}
+                    }
                     key={item.value}
                     onClick={() => {
                       this.setState((state) => ({

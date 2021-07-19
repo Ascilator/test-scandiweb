@@ -391,6 +391,12 @@ h2.page_title {
   color: #ffffff;
 }
 
+.attribute_set_container .controls .attribute_item._swatch {
+  font-size: 0;
+}
+.attribute_set_container .controls .attribute_item._swatch._active {
+  border: 2px solid #1d1f22;
+}
 .add_to_cart_btn {
   font-weight: 600;
   font-size: 16px;
@@ -511,6 +517,7 @@ h2.page_title {
   margin-bottom: 8px;
   padding: 0 5px;
 }
+
 .product_in_cart
   .left_part
   .attributes_cont

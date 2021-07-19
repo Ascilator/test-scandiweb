@@ -75,7 +75,6 @@ function App({ history }) {
         },
       ];
     }
-    console.log(newCartInside);
     setCartInside(newCartInside);
   };
   const changeActiveAttributes = (productId, newAttribute, newValue) => {
@@ -151,14 +150,6 @@ function App({ history }) {
       return product.id === id;
     })[0];
   };
-
-  console.log(
-    catalog.map((iem) => {
-      return iem.attributes.map((attrSet) => {
-        return [attrSet.type, attrSet.name];
-      });
-    })
-  );
 
   return (
     <>

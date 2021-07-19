@@ -36,7 +36,7 @@ class CardBig extends Component {
   }
 
   render() {
-    const { activeCurrency } = this.props;
+    const { activeCurrency, addToCart } = this.props;
     const { product, activePic, activeAttributes } = this.state;
 
     const gallery = product?.gallery;
@@ -118,7 +118,14 @@ class CardBig extends Component {
               <h3 className="price_title">PRICE:</h3>
               <div className="price">{getPrice(activeCurrency, prices)}</div>
             </div>
-            <button className="add_to_cart_btn">ADD TO CART</button>
+            <button
+              className="add_to_cart_btn"
+              onClick={() => {
+                addToCart(product);
+              }}
+            >
+              ADD TO CART
+            </button>
             <div
               className="desc"
               dangerouslySetInnerHTML={{ __html: desc }}

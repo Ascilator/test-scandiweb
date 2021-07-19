@@ -63,6 +63,9 @@ class HeaderCart extends Component {
           }}
         >
           <img src={cart} alt="" />
+          {cartInside.length ? (
+            <div className="size">{cartInside.length}</div>
+          ) : null}
         </div>
         <div className="cart_body">
           <div className="cart_body_header">

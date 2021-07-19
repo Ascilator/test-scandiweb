@@ -195,6 +195,7 @@ function App({ history }) {
               activeCurrency={activeCurrency}
               {...props}
               onMount={filterCatalog}
+              addToCart={addToCart}
             />
           )}
         />

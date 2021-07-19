@@ -421,6 +421,25 @@ h2.page_title {
 }
 .cart .cart_icon {
   cursor: pointer;
+  position: relative;
+}
+.cart .cart_icon .size {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+  background: #000;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
 }
 .cart .cart_body {
   position: absolute;

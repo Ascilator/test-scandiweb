@@ -18,7 +18,7 @@ class CardBig extends Component {
     const id = this.props.match.params.productId;
     const product = onMount(id);
     if (product) {
-      //to this pattern {size: 40, color: blue}
+      //to this template {size: 40, color: blue}
       const attributes = product.attributes.reduce(
         (prevValue, attributeSet) => {
           prevValue[attributeSet.name] = attributeSet.items[0].id;

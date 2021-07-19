@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import classNames from "classnames";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
@@ -18,6 +19,9 @@ function App({ history }) {
   const currenciesResponse = useQuery(GET_CURRENCIES);
   const catalogResponse = useQuery(GET_CATALOG);
 
+  //catalog was possible to put into redux, but the aplication is not so hard, that's why i decided not to do it. But i understand that it is wrong.
+
+  //catalog block
   const [catalog, setCatalog] = useState([]);
   const [filteredCatalog, setFilteredCatalog] = useState([]);
   const [currencies, setCurrencies] = useState([]);
@@ -28,6 +32,7 @@ function App({ history }) {
     setActiveCurrency(newOption);
   };
 
+  //for whom block
   const forWhomList = ["All", "clothes", "tech"];
   const [forWhom, setForWhom] = useState(forWhomList[0]);
   const onForWhomChange = (newOption) => {
@@ -41,6 +46,72 @@ function App({ history }) {
     } else {
       setFilteredCatalog(catalog);
     }
+  };
+
+  //cart block
+  const [cartInside, setCartInside] = useState([]);
+  const addToCart = (product) => {
+    let isAlreadyThere = false;
+    let newCartInside = cartInside.map((productIn) => {
+      if (productIn.id === product.id) {
+        productIn.amount++;
+        isAlreadyThere = true;
+      }
+      return productIn;
+    });
+    if (!isAlreadyThere) {
+      newCartInside = [
+        ...newCartInside,
+        {
+          ...product,
+          amount: 1,
+          activeAttributes: product.attributes.reduce(
+            (prevValue, attributeSet) => {
+              prevValue[attributeSet.name] = attributeSet.items[0].id;
+              return prevValue;
+            },
+            {}
+          ),
+        },
+      ];
+    }
+    console.log(newCartInside);
+    setCartInside(newCartInside);
+  };
+  const changeActiveAttributes = (productId, newAttribute, newValue) => {
+    setCartInside(
+      cartInside.map((product) => {
+        if (product.id === productId) {
+          product.activeAttributes[newAttribute] = newValue;
+        }
+        return product;
+      })
+    );
+  };
+  const changeAmount = (productId, operation) => {
+    setCartInside(
+      cartInside
+        .map((product) => {
+          if (productId === product.id) {
+            if (operation === "plus") {
+              product.amount++;
+            }
+            if (operation === "minus") {
+              product.amount--;
+            }
+          }
+          return product;
+        })
+        .filter((product) => {
+          return product.amount !== 0;
+        })
+    );
+  };
+
+  //back black
+  const [active, setgActive] = useState(false);
+  const toggleBlackBack = (open) => {
+    setgActive(open);
   };
 
   //getting data from graphql server
@@ -81,6 +152,14 @@ function App({ history }) {
     })[0];
   };
 
+  console.log(
+    catalog.map((iem) => {
+      return iem.attributes.map((attrSet) => {
+        return [attrSet.type, attrSet.name];
+      });
+    })
+  );
+
   return (
     <>
       <Header
@@ -90,6 +169,10 @@ function App({ history }) {
         currencyList={currencies}
         activeCurrency={activeCurrency}
         onCurrencyChange={onCurrencyChange}
+        cartInside={cartInside}
+        toggleBlackBack={toggleBlackBack}
+        changeActiveAttributes={changeActiveAttributes}
+        changeAmount={changeAmount}
       />
       <Switch>
         <Route
@@ -100,6 +183,7 @@ function App({ history }) {
             <Catalog
               catalog={filteredCatalog}
               activeCurrency={activeCurrency}
+              addToCart={addToCart}
             />
           )}
         />
@@ -117,10 +201,25 @@ function App({ history }) {
         <Route
           history={history}
           path={PATH_CART}
-          component={({ ...props }) => <Cart {...props} />}
+          component={({ ...props }) => (
+            <Cart
+              {...props}
+              cartInside={cartInside}
+              activeCurrency={activeCurrency}
+              changeActiveAttributes={changeActiveAttributes}
+              changeAmount={changeAmount}
+            />
+          )}
         />
         <Redirect from={PATH_START} to={PATH_HOME} />
       </Switch>
+
+      <div
+        className={classNames({
+          black_href: true,
+          _active: active,
+        })}
+      ></div>
     </>
   );
 }

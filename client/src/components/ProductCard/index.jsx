@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 import { getPrice } from "../../utils/utils";
 
@@ -7,12 +8,12 @@ import cartIcon from "./cart_icon.svg";
 
 class ProductCard extends Component {
   render() {
-    const { product, activeCurrency } = this.props;
+    const { product, activeCurrency, addToCart } = this.props;
     const { gallery, name, prices } = product;
 
     return (
-      <a
-        href={product.inStock ? `/catalog/products/${product.id}` : "#"}
+      <Link
+        to={product.inStock ? `/catalog/products/${product.id}` : "#"}
         className={classNames({
           product_card_small: true,
           _out_of_stock: !product.inStock,
@@ -24,7 +25,7 @@ class ProductCard extends Component {
             className="add_to_card_in_item"
             onClick={(e) => {
               e.preventDefault();
-              console.log(1234);
+              addToCart(product);
             }}
           >
             <img src={cartIcon} alt="" />
@@ -34,7 +35,7 @@ class ProductCard extends Component {
         </div>
         <div className="item_name">{name}</div>
         <div className="item_price">{getPrice(activeCurrency, prices)}</div>
-      </a>
+      </Link>
     );
   }
 }

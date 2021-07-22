@@ -9,6 +9,22 @@ class CurrencyList extends Component {
     this.state = {
       open: false,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  handleClickOutside(e) {
+    if (!e.target.closest(".drop_down_cont")) {
+      this.setState({ open: false });
+    }
   }
   render() {
     const { currencyList, activeCurrency, onChange } = this.props;
@@ -42,7 +58,7 @@ class CurrencyList extends Component {
     };
 
     return (
-      <div className="drop_down_cont">
+      <div className="drop_down_cont" ref={this.wrapperRef}>
         <div className="drop_down_title" onClick={clickHandler}>
           <div className="text">
             {activeCurrency ? activeCurrency.icon : null}

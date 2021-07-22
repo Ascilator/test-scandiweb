@@ -15,7 +15,26 @@ class HeaderCart extends Component {
     this.state = {
       open: false,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  handleClickOutside(e) {
+    const { toggleBlackBack } = this.props;
+    if (!e.target.closest(".cart")) {
+      this.setState({ open: false });
+      toggleBlackBack(false);
+    }
+  }
+
   render() {
     const {
       cartInside,
@@ -25,12 +44,10 @@ class HeaderCart extends Component {
       changeAmount,
     } = this.props;
     const getTotal = () => {
-      return Math.round(
-        cartInside.reduce((prevValue, product) => {
-          return (prevValue +=
-            getPrice(activeCurrency, product.prices).slice(2) * product.amount);
-        }, 0)
-      );
+      return cartInside.reduce((prevValue, product) => {
+        return (prevValue +=
+          getPrice(activeCurrency, product.prices).slice(2) * product.amount);
+      }, 0);
     };
     const renderCartInside = () => {
       return cartInside.map((prod) => {
@@ -45,13 +62,18 @@ class HeaderCart extends Component {
         );
       });
     };
-
+    const getAmount = () => {
+      return cartInside.reduce((prevValue, elem) => {
+        return (prevValue += elem.amount);
+      }, 0);
+    };
     return (
       <div
         className={classNames({
           cart: true,
           open: this.state.open,
         })}
+        ref={this.wrapperRef}
       >
         <div
           className="cart_icon"
@@ -63,13 +85,11 @@ class HeaderCart extends Component {
           }}
         >
           <img src={cart} alt="" />
-          {cartInside.length ? (
-            <div className="size">{cartInside.length}</div>
-          ) : null}
+          {cartInside.length ? <div className="size">{getAmount()}</div> : null}
         </div>
         <div className="cart_body">
           <div className="cart_body_header">
-            <span>My Bag, </span> {cartInside.length} items
+            <span>My Bag, </span> {getAmount()} items
           </div>
           {renderCartInside()}
           <div className="cart_footer">

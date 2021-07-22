@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard";
 
 class Catalog extends Component {
   render() {
-    const { catalog, activeCurrency, addToCart } = this.props;
+    const { catalog, activeCurrency, addToCart, forWhom } = this.props;
     const renderProducts = () => {
       return catalog.map((product) => {
         return (
@@ -19,7 +19,7 @@ class Catalog extends Component {
 
     return catalog ? (
       <div className="catalog main_wrapper">
-        <h2 className="page_title">Category name</h2>
+        <h2 className="page_title">{forWhom}</h2>
         <div className="catalog_container">{renderProducts()}</div>
       </div>
     ) : null;

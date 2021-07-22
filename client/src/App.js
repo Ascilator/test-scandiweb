@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
-import classNames from "classnames";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 
-import { GET_CURRENCIES, GET_CATALOG } from "./query";
+import { GET_CURRENCIES, GET_CATALOG } from './query';
 
-import { PATH_HOME, PATH_ITEM, PATH_START, PATH_CART } from "./constants";
+import { PATH_HOME, PATH_ITEM, PATH_START, PATH_CART } from './constants';
 
-import Header from "./components/Header";
-import Catalog from "./components/Catalog";
-import CardBig from "./components/CardBig";
-import Cart from "./components/Cart";
+import Header from './components/Header';
+import Catalog from './components/Catalog';
+import CardBig from './components/CardBig';
+import Cart from './components/Cart';
+import GoBack from './components/GoBack';
 
-import "./styles.css";
+import './styles.css';
 
 function App({ history }) {
   const currenciesResponse = useQuery(GET_CURRENCIES);
@@ -27,21 +28,21 @@ function App({ history }) {
   const [currencies, setCurrencies] = useState([]);
   const [activeCurrency, setActiveCurrency] = useState([]);
 
-  const currIcons = ["$", "£", "A$", "¥", "₽"];
+  const currIcons = ['$', '£', 'A$', '¥', '₽'];
   const onCurrencyChange = (newOption) => {
     setActiveCurrency(newOption);
   };
 
   //for whom block
-  const forWhomList = ["All", "clothes", "tech"];
+  const forWhomList = ['All', 'clothes', 'tech'];
   const [forWhom, setForWhom] = useState(forWhomList[0]);
   const onForWhomChange = (newOption) => {
     setForWhom(newOption);
-    if (newOption !== "All") {
+    if (newOption !== 'All') {
       setFilteredCatalog(
         catalog.filter((product) => {
           return newOption === product.category;
-        })
+        }),
       );
     } else {
       setFilteredCatalog(catalog);
@@ -54,8 +55,8 @@ function App({ history }) {
     let isAlreadyThere = false;
     let newCartInside = cartInside.map((productIn) => {
       if (productIn.id === product.id) {
-        productIn.amount++;
-        isAlreadyThere = true;
+        //productIn.amount++;
+        //isAlreadyThere = true;
       }
       return productIn;
     });
@@ -65,13 +66,11 @@ function App({ history }) {
         {
           ...product,
           amount: 1,
-          activeAttributes: product.attributes.reduce(
-            (prevValue, attributeSet) => {
-              prevValue[attributeSet.name] = attributeSet.items[0].id;
-              return prevValue;
-            },
-            {}
-          ),
+          id: Math.random() * 1000000000,
+          activeAttributes: product.attributes.reduce((prevValue, attributeSet) => {
+            prevValue[attributeSet.name] = attributeSet.items[0].id;
+            return prevValue;
+          }, {}),
         },
       ];
     }
@@ -84,7 +83,7 @@ function App({ history }) {
           product.activeAttributes[newAttribute] = newValue;
         }
         return product;
-      })
+      }),
     );
   };
   const changeAmount = (productId, operation) => {
@@ -92,10 +91,10 @@ function App({ history }) {
       cartInside
         .map((product) => {
           if (productId === product.id) {
-            if (operation === "plus") {
+            if (operation === 'plus') {
               product.amount++;
             }
-            if (operation === "minus") {
+            if (operation === 'minus') {
               product.amount--;
             }
           }
@@ -103,7 +102,7 @@ function App({ history }) {
         })
         .filter((product) => {
           return product.amount !== 0;
-        })
+        }),
     );
   };
 
@@ -171,36 +170,40 @@ function App({ history }) {
           exact
           path={PATH_HOME}
           component={() => (
-            <Catalog
-              catalog={filteredCatalog}
-              activeCurrency={activeCurrency}
-              addToCart={addToCart}
-            />
+            <>
+              <Catalog
+                catalog={filteredCatalog}
+                activeCurrency={activeCurrency}
+                addToCart={addToCart}
+                forWhom={forWhom}
+              />
+            </>
           )}
         />
         <Route
           history={history}
           path={PATH_ITEM}
           component={({ ...props }) => (
-            <CardBig
-              activeCurrency={activeCurrency}
-              {...props}
-              onMount={filterCatalog}
-              addToCart={addToCart}
-            />
+            <>
+              <GoBack />
+              <CardBig activeCurrency={activeCurrency} {...props} onMount={filterCatalog} addToCart={addToCart} />
+            </>
           )}
         />
         <Route
           history={history}
           path={PATH_CART}
           component={({ ...props }) => (
-            <Cart
-              {...props}
-              cartInside={cartInside}
-              activeCurrency={activeCurrency}
-              changeActiveAttributes={changeActiveAttributes}
-              changeAmount={changeAmount}
-            />
+            <>
+              <GoBack />
+              <Cart
+                {...props}
+                cartInside={cartInside}
+                activeCurrency={activeCurrency}
+                changeActiveAttributes={changeActiveAttributes}
+                changeAmount={changeAmount}
+              />
+            </>
           )}
         />
         <Redirect from={PATH_START} to={PATH_HOME} />

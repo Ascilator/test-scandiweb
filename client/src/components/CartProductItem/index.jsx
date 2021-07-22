@@ -69,9 +69,13 @@ class CartProductItem extends Component {
           <button
             className="arrow arrowLeft"
             onClick={() => {
-              this.setState((state) => ({
-                activeImg: (state.activeImg - 1) % gallery.length,
-              }));
+              let newActiveImg = (this.state.activeImg - 1) % gallery.length;
+              if (newActiveImg < 0) {
+                newActiveImg = gallery.length - 1;
+              }
+              this.setState({
+                activeImg: newActiveImg,
+              });
             }}
           >
             <img src={chevron} alt="" />

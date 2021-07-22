@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Parser from "html-react-parser";
 import classNames from "classnames";
 import { getPrice } from "../../utils/utils";
 
@@ -45,6 +46,7 @@ class CardBig extends Component {
     const attributes = product?.attributes;
     const prices = product?.prices;
     const desc = product?.description;
+    const inStock = product?.inStock;
 
     const renderSlides = () => {
       return gallery?.map((img) => {
@@ -124,16 +126,14 @@ class CardBig extends Component {
             </div>
             <button
               className="add_to_cart_btn"
+              disabled={!inStock}
               onClick={() => {
                 addToCart(product);
               }}
             >
-              ADD TO CART
+              {inStock ? "ADD TO CART" : "OUT OF STOCK"}
             </button>
-            <div
-              className="desc"
-              dangerouslySetInnerHTML={{ __html: desc }}
-            ></div>
+            <div className="desc">{Parser(desc)}</div>
           </div>
         </div>
       </div>

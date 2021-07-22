@@ -13,7 +13,7 @@ class ProductCard extends Component {
 
     return (
       <Link
-        to={product.inStock ? `/catalog/products/${product.id}` : "#"}
+        to={`/catalog/products/${product.id}`}
         className={classNames({
           product_card_small: true,
           _out_of_stock: !product.inStock,

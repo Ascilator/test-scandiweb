@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import classNames from 'classnames';
 
-import arrow from "./arrow.svg";
+import arrow from './arrow.svg';
 
 class CurrencyList extends Component {
   constructor(props) {
@@ -14,15 +14,15 @@ class CurrencyList extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleClickOutside(e) {
-    if (!e.target.closest(".drop_down_cont")) {
+    if (!e.target.closest('.drop_down_cont')) {
       this.setState({ open: false });
     }
   }
@@ -45,7 +45,7 @@ class CurrencyList extends Component {
               onChange(curr);
             }}
           >
-            {curr.icon + " " + curr.curr}
+            {curr.icon + ' ' + curr.curr}
           </div>
         );
       });
@@ -60,9 +60,7 @@ class CurrencyList extends Component {
     return (
       <div className="drop_down_cont" ref={this.wrapperRef}>
         <div className="drop_down_title" onClick={clickHandler}>
-          <div className="text">
-            {activeCurrency ? activeCurrency.icon : null}
-          </div>
+          <div className="text">{activeCurrency ? activeCurrency.icon : null}</div>
           <div
             className={classNames({
               arrow: true,

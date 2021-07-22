@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
-import { getPrice } from "../../utils/utils";
+import { getPrice } from '../../utils/utils';
 
-import cartIcon from "./cart_icon.svg";
+import cartIcon from './cart_icon.svg';
 
 class ProductCard extends Component {
   render() {

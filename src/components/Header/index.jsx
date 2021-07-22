@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Filter from "../Filter";
-import Logo from "../Logo";
-import CurrencyList from "../CurrencyList";
-import HeaderCart from "../HeaderCart";
+import Filter from '../Filter';
+import Logo from '../Logo';
+import CurrencyList from '../CurrencyList';
+import HeaderCart from '../HeaderCart';
 
 class Header extends Component {
   render() {
@@ -22,18 +22,10 @@ class Header extends Component {
     return (
       <header className="header">
         <div className="main_wrapper">
-          <Filter
-            optionList={optionList}
-            forWhom={forWhom}
-            onChange={onForWhomChange}
-          />
+          <Filter optionList={optionList} forWhom={forWhom} onChange={onForWhomChange} />
           <Logo />
           <div className="controls_container">
-            <CurrencyList
-              currencyList={currencyList}
-              activeCurrency={activeCurrency}
-              onChange={onCurrencyChange}
-            />
+            <CurrencyList currencyList={currencyList} activeCurrency={activeCurrency} onChange={onCurrencyChange} />
             <HeaderCart
               cartInside={cartInside}
               activeCurrency={activeCurrency}

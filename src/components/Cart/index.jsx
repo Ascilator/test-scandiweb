@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import CartProductItem from "../CartProductItem";
+import React, { Component } from 'react';
+import CartProductItem from '../CartProductItem';
 
 class Cart extends Component {
   render() {
-    const { cartInside, activeCurrency, changeActiveAttributes, changeAmount } =
-      this.props;
+    const { cartInside, activeCurrency, changeActiveAttributes, changeAmount } = this.props;
 
     const renderCartBody = () => {
       if (cartInside.length === 0) {

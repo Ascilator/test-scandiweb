@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Parser from "html-react-parser";
-import classNames from "classnames";
-import { getPrice } from "../../utils/utils";
+import Parser from 'html-react-parser';
+import classNames from 'classnames';
+import { getPrice } from '../../utils/utils';
 
 class CardBig extends Component {
   constructor(props) {
@@ -20,13 +20,10 @@ class CardBig extends Component {
     const product = onMount(id);
     if (product) {
       //to this template {size: 40, color: blue}
-      const attributes = product.attributes.reduce(
-        (prevValue, attributeSet) => {
-          prevValue[attributeSet.name] = attributeSet.items[0].id;
-          return prevValue;
-        },
-        {}
-      );
+      const attributes = product.attributes.reduce((prevValue, attributeSet) => {
+        prevValue[attributeSet.name] = attributeSet.items[0].id;
+        return prevValue;
+      }, {});
 
       this.setState({
         product: product,
@@ -80,13 +77,9 @@ class CardBig extends Component {
                     className={classNames({
                       attribute_item: true,
                       _active: activeAttributes[attributeSet.name] === item.id,
-                      _swatch: attributeSet.type === "swatch",
+                      _swatch: attributeSet.type === 'swatch',
                     })}
-                    style={
-                      attributeSet.type === "swatch"
-                        ? { backgroundColor: item.displayValue }
-                        : {}
-                    }
+                    style={attributeSet.type === 'swatch' ? { backgroundColor: item.displayValue } : {}}
                     key={item.value}
                     onClick={() => {
                       this.setState((state) => ({
@@ -131,7 +124,7 @@ class CardBig extends Component {
                 addToCart(product);
               }}
             >
-              {inStock ? "ADD TO CART" : "OUT OF STOCK"}
+              {inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
             </button>
             <div className="desc">{Parser(desc)}</div>
           </div>

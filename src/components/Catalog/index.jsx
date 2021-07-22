@@ -1,19 +1,12 @@
-import React, { Component } from "react";
-import ProductCard from "../ProductCard";
+import React, { Component } from 'react';
+import ProductCard from '../ProductCard';
 
 class Catalog extends Component {
   render() {
     const { catalog, activeCurrency, addToCart, forWhom } = this.props;
     const renderProducts = () => {
       return catalog.map((product) => {
-        return (
-          <ProductCard
-            product={product}
-            activeCurrency={activeCurrency}
-            key={product.id}
-            addToCart={addToCart}
-          />
-        );
+        return <ProductCard product={product} activeCurrency={activeCurrency} key={product.id} addToCart={addToCart} />;
       });
     };
 

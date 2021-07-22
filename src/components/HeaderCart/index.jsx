@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
-import { getPrice } from "../../utils/utils";
+import { getPrice } from '../../utils/utils';
 
-import CartProductItem from "../CartProductItem";
+import CartProductItem from '../CartProductItem';
 
-import cart from "./cart.svg";
-import { PATH_CART } from "../../constants";
+import cart from './cart.svg';
+import { PATH_CART } from '../../constants';
 
 class HeaderCart extends Component {
   constructor(props) {
@@ -20,33 +20,26 @@ class HeaderCart extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleClickOutside(e) {
     const { toggleBlackBack } = this.props;
-    if (!e.target.closest(".cart")) {
+    if (!e.target.closest('.cart')) {
       this.setState({ open: false });
       toggleBlackBack(false);
     }
   }
 
   render() {
-    const {
-      cartInside,
-      activeCurrency,
-      toggleBlackBack,
-      changeActiveAttributes,
-      changeAmount,
-    } = this.props;
+    const { cartInside, activeCurrency, toggleBlackBack, changeActiveAttributes, changeAmount } = this.props;
     const getTotal = () => {
       return cartInside.reduce((prevValue, product) => {
-        return (prevValue +=
-          getPrice(activeCurrency, product.prices).slice(2) * product.amount);
+        return (prevValue += getPrice(activeCurrency, product.prices).slice(2) * product.amount);
       }, 0);
     };
     const renderCartInside = () => {
@@ -62,6 +55,12 @@ class HeaderCart extends Component {
         );
       });
     };
+    const clickHandler = () => {
+      this.setState((state) => ({
+        open: !state.open,
+      }));
+      toggleBlackBack(!this.state.open);
+    };
     const getAmount = () => {
       return cartInside.reduce((prevValue, elem) => {
         return (prevValue += elem.amount);
@@ -75,15 +74,7 @@ class HeaderCart extends Component {
         })}
         ref={this.wrapperRef}
       >
-        <div
-          className="cart_icon"
-          onClick={() => {
-            this.setState((state) => ({
-              open: !state.open,
-            }));
-            toggleBlackBack(!this.state.open);
-          }}
-        >
+        <div className="cart_icon" onClick={clickHandler}>
           <img src={cart} alt="" />
           {cartInside.length ? <div className="size">{getAmount()}</div> : null}
         </div>
@@ -100,28 +91,10 @@ class HeaderCart extends Component {
               </span>
             </div>
             <div className="cart_btns">
-              <Link
-                to={PATH_CART}
-                className="black_btn"
-                onClick={() => {
-                  this.setState((state) => ({
-                    open: !state.open,
-                  }));
-                  toggleBlackBack(!this.state.open);
-                }}
-              >
+              <Link to={PATH_CART} className="black_btn" onClick={clickHandler}>
                 View bag
               </Link>
-              <Link
-                to={PATH_CART}
-                onClick={() => {
-                  this.setState((state) => ({
-                    open: !state.open,
-                  }));
-                  toggleBlackBack(!this.state.open);
-                }}
-                className="green_btn"
-              >
+              <Link to={PATH_CART} onClick={clickHandler} className="green_btn">
                 CHECK OUT
               </Link>
             </div>

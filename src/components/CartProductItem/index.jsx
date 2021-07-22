@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import classNames from 'classnames';
 
-import { getPrice } from "../../utils/utils";
+import { getPrice } from '../../utils/utils';
 
-import chevron from "./chevron.svg";
+import chevron from './chevron.svg';
 
 class CartProductItem extends Component {
   constructor(props) {
@@ -13,13 +13,7 @@ class CartProductItem extends Component {
     };
   }
   render() {
-    const {
-      prod,
-      activeCurrency,
-      changeActiveAttributes,
-      changeAmount,
-      isCartPage = false,
-    } = this.props;
+    const { prod, activeCurrency, changeActiveAttributes, changeAmount, isCartPage = false } = this.props;
     const { attributes, activeAttributes, gallery } = prod;
     const { activeImg } = this.state;
 
@@ -33,22 +27,14 @@ class CartProductItem extends Component {
                 return (
                   <button
                     key={item.value}
-                    style={
-                      attributeSet.type === "swatch"
-                        ? { backgroundColor: item.displayValue }
-                        : {}
-                    }
+                    style={attributeSet.type === 'swatch' ? { backgroundColor: item.displayValue } : {}}
                     className={classNames({
                       attribute_item: true,
                       _active: activeAttributes[attributeSet.name] === item.id,
-                      _swatch: attributeSet.type === "swatch",
+                      _swatch: attributeSet.type === 'swatch',
                     })}
                     onClick={() => {
-                      changeActiveAttributes(
-                        prod.id,
-                        attributeSet.name,
-                        item.id
-                      );
+                      changeActiveAttributes(prod.id, attributeSet.name, item.id);
                     }}
                   >
                     {item.displayValue}
@@ -89,6 +75,7 @@ class CartProductItem extends Component {
                     slide: true,
                     _active_slide: index === activeImg,
                   })}
+                  key={Math.random()}
                   alt=""
                 />
               );
@@ -120,7 +107,7 @@ class CartProductItem extends Component {
             <button
               className="plus"
               onClick={() => {
-                changeAmount(prod.id, "plus");
+                changeAmount(prod.id, 'plus');
               }}
             >
               +
@@ -129,7 +116,7 @@ class CartProductItem extends Component {
             <button
               className="minus"
               onClick={() => {
-                changeAmount(prod.id, "minus");
+                changeAmount(prod.id, 'minus');
               }}
             >
               -

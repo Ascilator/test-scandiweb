@@ -10,8 +10,7 @@
     // "prettier/react",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:import/recommended",
-    "plugin:sonarjs/recommended"
+    "plugin:import/recommended"
   ],
   "plugins": ["prettier", "react", "import", "sonarjs"],
   "parser": "babel-eslint",
